@@ -41,21 +41,18 @@ class _CalculatorState extends State<Calculator> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Flexible(
-              flex: 1,
-              child: calculatorScreen(),
-            ),
-            Flexible(
-              flex: 2,
-              child: buttonsContainer(),
-            )
-          ],
-        ),
+    return Scaffold(
+      appBar: AppBar(title: const Text("Calculator",style: TextStyle(fontSize: 32,color: Colors.white),),backgroundColor: Colors.blue,elevation: 10,),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          calculatorScreen(),
+         
+          // const SizedBox(
+          //   height: 50,
+          // ),
+          buttonsContainer(),
+        ],
       ),
     );
   }
@@ -63,32 +60,47 @@ class _CalculatorState extends State<Calculator> {
   Widget calculatorScreen() {
     return Container(
       width: Get.width,
+      height: Get.height/5,
       decoration: BoxDecoration(
+        color: Colors.blue.shade50,
           border: Border.all(width: 5, color: Colors.black54),
           borderRadius: BorderRadius.circular(20)),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 30, right: 20),
-            child: Container(
-              alignment: Alignment.centerRight,
-              child: Text(
-                userInput,
-                style: const TextStyle(fontSize: 32),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 10, right: 20),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Container(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    userInput,
+                    style: const TextStyle(fontSize: 32,),
+                  ),
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Container(
-              alignment: Alignment.centerRight,
-              child: Text(
-                result,
-                style: const TextStyle(fontSize: 32),
+            const Divider(
+              height: 2,
+              thickness: 2,
+              color: Colors.black12,
+            ),
+            Padding(
+              padding: const EdgeInsets.only( right: 20),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Container(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    result,
+                    style: const TextStyle(fontSize: 32),
+                  ),
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -96,7 +108,7 @@ class _CalculatorState extends State<Calculator> {
   Widget buttonsContainer() {
     return SizedBox(
       width: Get.width,
-      height: Get.height * 0.7,
+      height: Get.height * 0.63,
       child: GridView.builder(
           itemCount: buttonText.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
